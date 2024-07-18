@@ -1,7 +1,7 @@
 <script setup>
 import { RouterLink, RouterView } from 'vue-router'
 //import HelloWorld from './components/HelloWorld.vue'
-
+import ToDoItem from "./components/ToDoItem.vue";
 </script>
 
 <template>
