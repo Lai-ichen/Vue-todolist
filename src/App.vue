@@ -1,23 +1,29 @@
-<script setup>
-import { RouterLink, RouterView } from 'vue-router'
-//import HelloWorld from './components/HelloWorld.vue'
-import ToDoItem from "./components/ToDoItem.vue";
-</script>
-
 <template>
   <header>
-    <div class="wrapper">
-      <HelloWorld msg="Welcome!" />
-      <nav>
-        <RouterLink to="/">Home</RouterLink>
-        <!-- <RouterLink to="/about">About</RouterLink> -->
-      </nav>
-    </div>
+    <div id="app">
+  <h1>To-Do List</h1>
+  <ul>
+    <li>
+      <to-do-item label="My Todo Item" :done="false"></to-do-item>
+    </li>
+  </ul>
+</div>
   </header>
 
   <RouterView />
 </template>
 
+<script>
+import { RouterLink, RouterView } from 'vue-router'
+import ToDoItem from "./components/ToDoItem.vue";
+
+export default {
+  name: "app",
+  components: {
+    ToDoItem,
+  },
+};
+</script>
 <style scoped>
 header {
   line-height: 1.5;
