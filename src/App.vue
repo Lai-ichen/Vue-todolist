@@ -2,11 +2,12 @@
   <header>
     <div id="app">
   <h1>To-Do List</h1>
+  <to-do-form></to-do-form>
   <ul>
-    <li>
-      <to-do-item label="My Todo Item" :done="false"></to-do-item>
-    </li>
-  </ul>
+  <li v-for="item in ToDoItems" :key="item.id">
+    <to-do-item :label="item.label" :done="item.done" :id="item.id"></to-do-item>
+  </li>
+</ul>
 </div>
   </header>
 
@@ -14,22 +15,31 @@
 </template>
 
 <script>
-import { nanoid } from "nanoid";
+
 import { RouterLink, RouterView } from 'vue-router'
 import ToDoItem from "./components/ToDoItem.vue";
+import ToDoForm from "./components/ToDoForm";
 
 export default {
   name: "app",
   components: {
-    ToDoItem,
+    ToDoItem,ToDoForm,
   },
   data() {
     return {
       ToDoItems: [
-        { label: "Learn Vue", done: false },
-        { label: "Create a Vue project with the CLI", done: true },
-        { label: "Have fun", done: true },
-        { label: "Create a to-do list", done: false },
+      { id: "todo-" + nanoid(), label: "Learn Vue", done: false },
+        {
+          id: "todo-" + nanoid(),
+          label: "Create a Vue project with the CLI",
+          done: true,
+        },
+        { id: "todo-" + nanoid(), label: "Have fun", done: true },
+        {
+          id: "todo-" + nanoid(),
+          label: "Create a to-do list",
+          done: false,
+        },
       ],
     };
   },
