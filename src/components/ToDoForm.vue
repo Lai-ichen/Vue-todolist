@@ -15,11 +15,12 @@
   export default {
   methods: {
     onSubmit() {
-      if(this.label===""){
+      if(this.label === ""){
         return;
       }
       //console.log('Label value: ', this.label);
-      this.$emit("todo-added", this.label);
+      this.$emit("todo-added", this.label);//If the label value is empty, let's not emit the todo-added event.
+      this.label = "";//click the "Add" button, the "new-todo-input" will clear itself.
     },
   },
   data() {
