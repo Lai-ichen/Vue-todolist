@@ -2,6 +2,7 @@
     <div>
     <input type="checkbox" :id="id" v-bind:checked="isDone" />
     <label :for="id">{{label}}</label>
+    
   </div>
 </template>
 <script> 

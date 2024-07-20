@@ -1,15 +1,32 @@
 <template>
-    <form>
+    <form @submit.prevent="onSubmit">
       <label for="new-todo-input"> What needs to be done? </label>
       <input
         type="text"
         id="new-todo-input"
         name="new-todo"
-        autocomplete="off" />
+        autocomplete="off" 
+        v-model="label" />
       <button type="submit">Add</button>
     </form>
   </template>
 
 <script>
-  export default {};
+  export default {
+  methods: {
+    onSubmit() {
+      if(this.label===""){
+        return;
+      }
+      //console.log('Label value: ', this.label);
+      this.$emit("todo-added", this.label);
+    },
+  },
+  data() {
+    return {
+      label: "",
+    };
+  },
+};
+
 </script>
