@@ -21,11 +21,16 @@
     </form>
   </template>
   <script>
+  import ToDoItemEditForm from "./ToDoItemEditForm";
+
     export default {
-      props: {
-        label: {
-          type: String,
-          required: true,
+        components: {
+            ToDoItemEditForm
+        },
+        props: {
+            label: {
+            type: String,
+            required: true,
         },
         id: {
           type: String,
