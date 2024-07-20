@@ -3,8 +3,10 @@
     <div id="app">
   <h1>To-Do List</h1>
   <to-do-form @todo-added="addToDo"></to-do-form>
-  <ul>
-  <li v-for="item in ToDoItems" :key="item.id">
+  <!-- improve the todo items -->
+  <ul aria-labelledby="list-summary" class="stack-large">
+
+    <li v-for="item in ToDoItems" :key="item.id">
     <to-do-item :label="item.label" :done="item.done" :id="item.id"></to-do-item>
   </li>
 </ul>
@@ -49,69 +51,130 @@ export default {
       //console.log("To-do added:", toDoLabel);
       this.ToDoItems.push({id: "todo-" + nanoid(), label: toDoLabel, done: false});
     },
+    updateDoneStatus(toDoId) {
+      const toDoToUpdate = this.ToDoItems.find((item) => item.id === toDoId)
+      toDoToUpdate.done = !toDoToUpdate.done
+    }
+
   },
+  computed: {
+  listSummary() {
+    const numberFinishedItems = this.ToDoItems.filter((item) =>item.done).length
+    return `${numberFinishedItems} out of ${this.ToDoItems.length} items completed`
+  }
+}
+
 };
 </script>
-<style scoped>
-header {
-  line-height: 1.5;
-  max-height: 100vh;
-}
-
-.logo {
-  display: block;
-  margin: 0 auto 2rem;
-}
-
-nav {
-  width: 100%;
-  font-size: 12px;
-  text-align: center;
-  margin-top: 2rem;
-}
-
-nav a.router-link-exact-active {
-  color: var(--color-text);
-}
-
-nav a.router-link-exact-active:hover {
-  background-color: transparent;
-}
-
-nav a {
-  display: inline-block;
-  padding: 0 1rem;
-  border-left: 1px solid var(--color-border);
-}
-
-nav a:first-of-type {
-  border: 0;
-}
-
-@media (min-width: 1024px) {
-  header {
+<style>
+  /* Global styles */
+  .btn {
+    padding: 0.8rem 1rem 0.7rem;
+    border: 0.2rem solid #4d4d4d;
+    cursor: pointer;
+    text-transform: capitalize;
+  }
+  .btn__danger {
+    color: #fff;
+    background-color: #ca3c3c;
+    border-color: #bd2130;
+  }
+  .btn__filter {
+  }
+  .btn__danger:focus {
+    outline-color: #c82333;
+  }
+  .btn__primary {
+    color: #fff;
+    background-color: #000;
+  }
+  .btn-group {
     display: flex;
-    place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
+    justify-content: space-between;
   }
-
-  .logo {
-    margin: 0 2rem 0 0;
+  .btn-group > * {
+    flex: 1 1 auto;
   }
-
-  header .wrapper {
-    display: flex;
-    place-items: flex-start;
-    flex-wrap: wrap;
+  .btn-group > * + * {
+    margin-left: 0.8rem;
   }
-
-  nav {
-    text-align: left;
-    margin-left: -1rem;
-    font-size: 1rem;
-
-    padding: 1rem 0;
-    margin-top: 1rem;
+  .label-wrapper {
+    margin: 0;
+    flex: 0 0 100%;
+    text-align: center;
   }
-}
+  [class*="__lg"] {
+    display: inline-block;
+    width: 100%;
+    font-size: 1.9rem;
+  }
+  [class*="__lg"]:not(:last-child) {
+    margin-bottom: 1rem;
+  }
+  @media screen and (min-width: 620px) {
+    [class*="__lg"] {
+      font-size: 2.4rem;
+    }
+  }
+  .visually-hidden {
+    position: absolute;
+    height: 1px;
+    width: 1px;
+    overflow: hidden;
+    clip: rect(1px 1px 1px 1px);
+    clip: rect(1px, 1px, 1px, 1px);
+    clip-path: rect(1px, 1px, 1px, 1px);
+    white-space: nowrap;
+  }
+  [class*="stack"] > * {
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+  .stack-small > * + * {
+    margin-top: 1.25rem;
+  }
+  .stack-large > * + * {
+    margin-top: 2.5rem;
+  }
+  @media screen and (min-width: 550px) {
+    .stack-small > * + * {
+      margin-top: 1.4rem;
+    }
+    .stack-large > * + * {
+      margin-top: 2.8rem;
+    }
+  }
+  /* End global styles */
+  #app {
+    background: #fff;
+    margin: 2rem 0 4rem 0;
+    padding: 1rem;
+    padding-top: 0;
+    position: relative;
+    box-shadow:
+      0 2px 4px 0 rgb(0 0 0 / 20%),
+      0 2.5rem 5rem 0 rgb(0 0 0 / 10%);
+  }
+  @media screen and (min-width: 550px) {
+    #app {
+      padding: 4rem;
+    }
+  }
+  #app > * {
+    max-width: 50rem;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  #app > form {
+    max-width: 100%;
+  }
+  #app h1 {
+    display: block;
+    min-width: 100%;
+    width: 100%;
+    text-align: center;
+    margin: 0;
+    margin-bottom: 1rem;
+  }
 </style>
+
