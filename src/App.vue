@@ -3,11 +3,17 @@
     <div id="app">
   <h1>To-Do List</h1>
   <to-do-form @todo-added="addToDo"></to-do-form>
+  <h2 id="list-summary">{{listSummary}}</h2>
   <!-- improve the todo items -->
   <ul aria-labelledby="list-summary" class="stack-large">
 
     <li v-for="item in ToDoItems" :key="item.id">
-    <to-do-item :label="item.label" :done="item.done" :id="item.id"></to-do-item>
+    <to-do-item 
+    :label="item.label" 
+    :done="item.done" 
+    :id="item.id"
+    @checkbox-changed="updateDoneStatus(item.id)"
+    ></to-do-item>
   </li>
 </ul>
 </div>
@@ -18,7 +24,7 @@
 
 <script>
 
-import { RouterLink, RouterView } from 'vue-router'
+// import { RouterLink, RouterView } from 'vue-router'
 import ToDoItem from "./components/ToDoItem.vue";
 import ToDoForm from "./components/ToDoForm.vue";
 import { nanoid } from "nanoid";
