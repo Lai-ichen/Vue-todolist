@@ -89,7 +89,7 @@ export default {
   }
   .btn__danger {
     color: #fff;
-    background-color: #ca3c3c;
+    background-color: #fe0a0a;
     border-color: #bd2130;
   }
   .btn__filter {
