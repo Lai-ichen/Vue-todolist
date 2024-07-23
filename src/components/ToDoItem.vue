@@ -18,12 +18,20 @@
       </button>
     </div>
   </div>
-  <to-do-item-edit-form v-else :id="id" :label="label"></to-do-item-edit-form>
+  <to-do-item-edit-form v-else 
+    :id="id" 
+    :label="label"
+    @item-edited="itemEdited"
+    @edit-cancelled="editCancelled"
+    ></to-do-item-edit-form>
 </template>
 
 <script> 
-import uniqueId from "lodash.uniqueid";
+import ToDoItemEditForm from "./ToDoItemEditForm.vue";
   export default {
+    components: {
+    ToDoItemEditForm,
+     },
     props: {
       label: { required: true, type: String },
       done: { default: false, type: Boolean },
@@ -31,17 +39,30 @@ import uniqueId from "lodash.uniqueid";
     },
     data(){
       return{
-        isDone:this.done,
         isEditing: false,
       };
     },
-    methods: {
-    deleteToDo() {
-      this.$emit('item-deleted');
+    computed: {
+      isDone() {
+        return this.done;
+      }
     },
-    toggleToItemEditForm() {
-      this.isEditing = true;
-    }
+    methods: {
+      deleteToDo() {
+        this.$emit('item-deleted');
+      },
+      toggleToItemEditForm() {
+        this.isEditing = true;
+      },
+      itemEdited(newLabel) {
+        this.$emit('item-edited', newLabel);
+        this.isEditing = false;
+      },
+      editCancelled() {
+        this.isEditing = false;
+      }
+
+
   }
 
 

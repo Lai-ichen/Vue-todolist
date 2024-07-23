@@ -4,6 +4,7 @@
         <label class="edit-label">Edit Name for &quot;{{label}}&quot;</label>
         <input
           :id="id"
+          ref="labelInput"
           type="text"
           autocomplete="off"
           v-model.lazy.trim="newLabel" />
@@ -21,12 +22,7 @@
     </form>
   </template>
   <script>
-  import ToDoItemEditForm from "./ToDoItemEditForm";
-
     export default {
-        components: {
-            ToDoItemEditForm
-        },
         props: {
             label: {
             type: String,
@@ -51,6 +47,10 @@
         onCancel() {
           this.$emit("edit-cancelled");
         },
+      },
+      mounted() {
+        const labelInputRef = this.$refs.labelInput;
+        labelInputRef.focus();
       },
     };
   </script>
