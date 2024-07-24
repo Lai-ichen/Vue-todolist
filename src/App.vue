@@ -2,7 +2,8 @@
     <div id="app">
   <h1>To-Do List</h1>
   <to-do-form @todo-added="addToDo"></to-do-form>
-  <h2 id="list-summary">{{listSummary}}</h2>
+  <!-- tabindex="-1" to it — this makes the element programmatically focusable (i.e. it can be focused via JavaScript), when by default it is not. -->
+  <h2 id="list-summary" ref="listSummary" tabindex="-1">{{listSummary}}</h2>
   <!-- improve the todo items -->
   <ul aria-labelledby="list-summary" class="stack-large">
 
@@ -59,8 +60,9 @@ export default {
       toDoToUpdate.done = !toDoToUpdate.done
     },
     deleteToDo(toDoId) {
-      const itemIndex = this.ToDoItems.findIndex((item) => item.id === toDoId);
-      this.ToDoItems.splice(itemIndex, 1);
+    const itemIndex = this.ToDoItems.findIndex((item) => item.id === toDoId);
+    this.ToDoItems.splice(itemIndex, 1);
+    this.$refs.listSummary.focus();
     },
     editToDo(toDoId, newLabel) {
       const toDoToEdit = this.ToDoItems.find((item) => item.id === toDoId);

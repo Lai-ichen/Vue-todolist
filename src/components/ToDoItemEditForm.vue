@@ -7,7 +7,7 @@
           ref="labelInput"
           type="text"
           autocomplete="off"
-          v-model.lazy.trim="newLabel" />
+          v-model.lazy.trim="newName" />
       </div>
       <div class="btn-group">
         <button type="button" class="btn" @click="onCancel">

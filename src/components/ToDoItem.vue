@@ -52,15 +52,24 @@ import ToDoItemEditForm from "./ToDoItemEditForm.vue";
         this.$emit('item-deleted');
       },
       toggleToItemEditForm() {
+        console.log(this.$refs.editButton);
         this.isEditing = true;
       },
-      itemEdited(newLabel) {
-        this.$emit('item-edited', newLabel);
+      focusOnEditButton() {
+        this.$nextTick(() => {
+          const editButtonRef = this.$refs.editButton;
+          editButtonRef.focus();
+        });
+      },
+      itemEdited(newItemName) {
+        this.$emit("item-edited", newItemName);
         this.isEditing = false;
+        this.focusOnEditButton();
       },
       editCancelled() {
         this.isEditing = false;
-      }
+        this.focusOnEditButton();
+      },
 
 
   }
